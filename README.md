@@ -1,3 +1,9 @@
+# Links
+
+Link til Refleksion.md: https://github.com/MrByteBear/fd-opg/blob/main/Refleksion.md
+
+Link til site: https://neon-meringue-d8e3d8.netlify.app/
+
 # Opgaveskabelon til Frontend Design tema på Frontend-valgfaget
 
 Se opgavebeskrivelsen på Fronter.
