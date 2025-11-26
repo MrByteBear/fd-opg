@@ -9,7 +9,7 @@ Ligeledes, gjorde jeg det samme med tekst-indholdet. Jeg valgte at lave flere .j
 
 Den her konstant raffinering af elementer til del-elementer som komponenter, og hard-coded tekst-indhold til dynamisk tekst-indhold, har givet mig nogle værdifulde værdier, som jeg til tage med videre.
 
-Endvidere, har jeg også opbygget en meget dybere forståelse for Styling, og har klart lært meget mere end hvad jeg hid til havde kunne, forinden Tema 14 - Frontend Design modulet. Disse værdier, tager jeg også med videre.
+Endvidere, har jeg også opbygget en meget dybere forståelse for Styling, og har klart lært meget mere end hvad jeg hid til havde kunne, forinden Tema 13 - Frontend Design modulet. Disse værdier, tager jeg også med videre.
 
 ## Værdier
 
