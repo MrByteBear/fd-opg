@@ -1,0 +1,171 @@
+---
+import experienceData from "@data/json/main/experience.json";
+---
+
+<section>
+  <div>
+    <slot/>
+    <ul id="counterContainers">
+      {
+        experienceData.stats.map((data) => (
+          <li>
+            <div class="circle-chart" style={`--chart-val: ${data.value}`}>
+              <div />
+            </div>
+            <p>{data.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    section {
+      --flow-space: 0;
+      background-color: var(--color-accent);
+      grid-column: 1 / 4;
+      display: grid;
+      grid-template-columns: subgrid;
+      padding-block: var(--space-xl-2xl);
+
+      > * {
+        grid-column: 2;
+        display: flex;
+        justify-content: space-between;
+        column-gap: var(--space-xs);
+
+        > :first-child > :first-child {
+          > p {
+            color: var(--color-black);
+            font-size: min(var(--fs-1), 18px);
+          }
+        }
+      }
+    }
+
+    @property --target-val {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    #counterContainers {
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: var(--space-m);
+
+      > * {
+        display: grid;
+        grid-template-columns: subgrid;
+        place-items: center;
+        row-gap: var(--space-s);
+
+        > * + * {
+          font-size: var(--fs-2);
+          font-family: var(--font-display);
+          font-weight: 500;
+        }
+      }
+    }
+
+    .circle-chart {
+      --percentage-val: calc(var(--target-val) * 1%);
+
+      --opague-bg-col: #daae3c;
+      --border-width: clamp(0.375rem, 0.33rem + 0.227vw, 0.5rem);
+
+      --anim-timing: cubic-bezier(0, 0.55, 0.45, 1);
+
+      width: clamp(8.672rem, 7.621rem + 5.256vw, 11.563rem);
+      aspect-ratio: 1;
+      border: var(--border-width) solid transparent;
+      border-radius: var(--radius-round);
+      position: relative;
+      display: grid;
+
+      counter-reset: p var(--target-val);
+
+      transition: --target-val 5s var(--anim-timing) 0.5s;
+
+      > * {
+        place-self: center;
+        border-radius: inherit;
+        border: inherit;
+        width: 100%;
+        aspect-ratio: 1;
+        background: conic-gradient(var(--color-white) 0% var(--percentage-val), var(--opague-bg-col) var(--percentage-val) 100%) border-box;
+        mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        mask-composite: exclude;
+      }
+
+      &::before {
+        content: counter(p) "%";
+        position: absolute;
+        place-self: center;
+        font-size: var(--fs-4);
+        font-family: var(--font-display);
+        font-weight: 700;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: clamp(1.406rem, 1.236rem + 0.852vw, 1.875rem);
+        aspect-ratio: 1;
+        background-color: var(--color-black);
+        border: calc(var(--border-width) / 1.5) solid var(--color-white);
+        border-radius: var(--radius-round);
+        offset-path: content-box;
+        offset-distance: var(--percentage-val);
+        offset-anchor: 50% calc(50% - var(--border-width) / 2);
+      }
+    }
+
+    .circle-chart.animated {
+      --target-val: var(--chart-val);
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    section {
+      margin-inline: var(--content-negative-pad);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+
+      > * {
+        display: grid;
+        justify-content: unset;
+        column-gap: unset;
+        row-gap: var(--space-l);
+      }
+    }
+
+    #counterContainers {
+      grid-auto-flow: row;
+      column-gap: unset;
+      row-gap: var(--space-m);
+    }
+  }
+</style>
+
+<script is:inline>
+  const circles = document.querySelectorAll(".circle-chart");
+
+  window.addEventListener("scroll", () => {
+    circles.forEach((circle) => {
+      const elemSize = circle.getBoundingClientRect();
+      if (elemSize.top < window.innerHeight && elemSize.bottom > 0) {
+        circle.classList.add("animated");
+      } else {
+        circle.classList.remove("animated");
+      }
+    });
+  });
+</script>

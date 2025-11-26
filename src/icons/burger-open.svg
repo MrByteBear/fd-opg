@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 348 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="burger-open">
+      <path class="cls-1" d="M324,256H24c-13.25,0-24-10.75-24-24s10.75-24,24-24h300c13.25,0,24,10.75,24,24s-10.75,24-24,24ZM324,152H24c-13.25,0-24-10.75-24-24s10.75-24,24-24h300c13.25,0,24,10.75,24,24s-10.75,24-24,24ZM324,48H24C10.75,48,0,37.25,0,24S10.75,0,24,0h300c13.25,0,24,10.75,24,24s-10.75,24-24,24Z"/>
+    </g>
+  </g>
+</svg>

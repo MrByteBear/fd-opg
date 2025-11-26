@@ -1,1 +1,183 @@
 /* Globale styles her */
+
+/* Importing Gabin and Lato font families. */
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+
+  --font-body: "Lato", sans-serif;
+  --font-display: "Cabin", sans-serif;
+
+  --content-width: 1200px;
+
+  --color-black: #181818;
+  --color-white: #FFF;
+  --color-white-alt: #f5f5f5;
+  --color-gray: #EBEBEB;
+  --color-accent: #ffcc4a;
+  --color-accent-alt: #4EAF4E;
+  --color-input-placeholder: #E3E3E3;
+  --color-text-gray: #595566;
+
+  --radius-round: 100%;
+  --radius-s: 0.5rem;
+  --radius-m: 1rem;
+  --radius-l: 2rem;
+
+  --content-padding: var(--space-m);
+
+  --content-negative-pad: calc(var(--content-padding) * -1);
+
+  --text-lh: calc(1em + 0.5rem);
+
+  /* ( OLD FONT SIZES ) 
+  
+  Font Sizes generated from link: https://utopia.fyi/type/calculator?c=320,16,1.2,1280,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12  
+
+  --fs--2: clamp(0.6944rem, 0.6859rem + 0.0426vw, 0.72rem);
+  --fs--1: clamp(0.8333rem, 0.8111rem + 0.1111vw, 0.9rem);
+  --fs-0: clamp(1rem, 0.9583rem + 0.2083vw, 1.125rem);
+  --fs-1: clamp(1.2rem, 1.1313rem + 0.3438vw, 1.4063rem);
+  --fs-2: clamp(1.44rem, 1.3341rem + 0.5297vw, 1.7578rem);
+  --fs-3: clamp(1.728rem, 1.5716rem + 0.7821vw, 2.1973rem);
+  --fs-4: clamp(2.0736rem, 1.8493rem + 1.1216vw, 2.7466rem);
+  --fs-5: clamp(2.4883rem, 2.1734rem + 1.5748vw, 3.4332rem);
+  */
+
+  /* Font Sizes generated from link: https://utopia.fyi/type/calculator/?c=320,14,1.2,1280,16,1.25,5,2,&s=0.75,1.5|2|3|4|6,s-l&g=s,l,xl,12  */
+  
+  --fs--2: clamp(0.6076rem, 0.5969rem + 0.0539vw, 0.64rem);
+  --fs--1: clamp(0.7292rem, 0.7056rem + 0.1181vw, 0.8rem);
+  --fs-0: clamp(0.875rem, 0.8333rem + 0.2083vw, 1rem);
+  --fs-1: clamp(1.05rem, 0.9833rem + 0.3333vw, 1.25rem);
+  --fs-2: clamp(1.26rem, 1.1592rem + 0.5042vw, 1.5625rem);
+  --fs-3: clamp(1.512rem, 1.365rem + 0.7352vw, 1.9531rem);
+  --fs-4: clamp(1.8144rem, 1.6054rem + 1.045vw, 2.4414rem);
+  --fs-5: clamp(2.1773rem, 1.8858rem + 1.4575vw, 3.0518rem);
+
+  /* ( OLD SPACING SIZES )
+  
+  
+  Spacing Sizes generated from link: https://utopia.fyi/space/calculator/?c=320,16,1.2,1280,18,1.25,5,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l&g=s,l,xl,12
+
+  /* The values are converted from PX to RLH.
+
+  /* rlh value is known using following formula: 1rlh = 1.5 (root line height) * 16px (root font size)
+  /* Following formula can be used: rlh value =  px value / rlh value in px
+  /* Given a root line-height of 1.5, and a root font size of 16px.
+
+
+  --space-3xs: clamp(0.17rlh, 0.15rlh + 0.05vw, 0.21rlh);
+  --space-2xs: clamp(0.33rlh, 0.3rlh + 0.05vw, 0.38rlh);
+  --space-xs: clamp(0.5rlh, 0.45rlh + 0.1vw, 0.58rlh);
+  --space-s: clamp(0.67rlh, 0.6rlh + 0.1vw, 0.75rlh);
+  --space-m: clamp(1rlh, 0.95rlh + 0.15vw, 1.13rlh);
+  --space-l: clamp(1.33rlh, 1.25rlh + 0.2vw, 1.5rlh);
+  --space-xl: clamp(2rlh, 1.9rlh + 0.3vw, 2.25rlh);
+  --space-2xl: clamp(2.67rlh, 2.5rlh + 0.4vw, 3rlh);
+  --space-3xl: clamp(4rlh, 3.8rlh + 0.6vw, 4.5rlh);
+
+  /* One-up pairs
+  --space-3xs-2xs: clamp(0.1667rlh, 0.0972rlh + 0.5208vw, 0.375rlh);
+  --space-2xs-xs: clamp(0.3333rlh, 0.25rlh + 0.625vw, 0.5833rlh);
+  --space-xs-s: clamp(0.5rlh, 0.4167rlh + 0.625vw, 0.75rlh);
+  --space-s-m: clamp(0.6667rlh, 0.5139rlh + 1.1458vw, 1.125rlh);
+  --space-m-l: clamp(1rlh, 0.8333rlh + 1.25vw, 1.5rlh);
+  --space-l-xl: clamp(1.3333rlh, 1.0278rlh + 2.2917vw, 2.25rlh);
+  --space-xl-2xl: clamp(2rlh, 1.6667rlh + 2.5vw, 3rlh);
+  --space-2xl-3xl: clamp(2.6667rlh, 2.0556rlh + 4.5833vw, 4.5rlh);
+
+  /* Custom pairs 
+  --space-s-l: clamp(0.6667rlh, 0.3889rlh + 2.0833vw, 1.5rlh);
+  */
+
+  /*Spacing Sizes generated from link: https://utopia.fyi/space/calculator/?c=320,14,1.2,1280,16,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+
+    The values are converted from PX to RLH.
+
+    rlh value is known using following formula: 1rlh = 1.5 (root line height) * 16px (root font size)
+    Following formula can be used: rlh value =  px value / rlh value in px
+    Given a root line-height of 1.5, and a root font size of 16px.
+
+  /* Base scale */
+  --space-3xs: clamp(0.1667rlh, 0.1667rlh + 0vw, 0.1667rlh);
+  --space-2xs: clamp(0.2917rlh, 0.2778rlh + 0.1042vw, 0.3333rlh);
+  --space-xs:  clamp(0.4583rlh, 0.4444rlh + 0.1042vw, 0.5rlh);
+  --space-s:   clamp(0.5833rlh, 0.5556rlh + 0.2083vw, 0.6667rlh);
+  --space-m:   clamp(0.875rlh,  0.8333rlh + 0.3125vw, 1rlh);
+  --space-l:   clamp(1.1667rlh, 1.1111rlh + 0.4167vw, 1.3333rlh);
+  --space-xl:  clamp(1.75rlh,   1.6667rlh + 0.625vw, 2rlh);
+  --space-2xl: clamp(2.3333rlh, 2.2222rlh + 0.8333vw, 2.6667rlh);
+  --space-3xl: clamp(3.5rlh,    3.3333rlh + 1.25vw, 4rlh);
+
+  /* One-up pairs */
+  --space-3xs-2xs: clamp(0.1667rlh, 0.1111rlh + 0.4167vw, 0.3333rlh);
+  --space-2xs-xs:  clamp(0.2917rlh, 0.2222rlh + 0.5208vw, 0.5rlh);
+  --space-xs-s:    clamp(0.4583rlh, 0.3889rlh + 0.5208vw, 0.6667rlh);
+  --space-s-m:     clamp(0.5833rlh, 0.4444rlh + 1.0417vw, 1rlh);
+  --space-m-l:     clamp(0.875rlh,  0.7222rlh + 1.1458vw, 1.3333rlh);
+  --space-l-xl:    clamp(1.1667rlh, 0.8889rlh + 2.0833vw, 2rlh);
+  --space-xl-2xl:  clamp(1.75rlh,   1.4444rlh + 2.2917vw, 2.6667rlh);
+  --space-2xl-3xl: clamp(2.3333rlh, 1.7778rlh + 4.1667vw, 4rlh);
+
+  /* Custom pairs */
+  --space-s-l: clamp(0.5833rlh, 0.3333rlh + 1.875vw, 1.3333rlh);
+
+
+
+}
+
+p,
+a {
+  font-family: var(--font-body);
+  margin-block: unset;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+label,
+input {
+  font-family: var(--font-display);
+}
+
+html {
+  --root-fs: 16px;
+  font-size: var(--root-fs);
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+:is(main:has(.mainContentWrapper) .mainContentWrapper, main:not(:has(.mainContentWrapper))) {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, var(--content-width)) 1fr;
+  min-height: 100vh;
+
+  > * {
+    grid-column: 2;
+  }
+
+  > * + * {
+    margin-block-start: var(--flow-space, 0.5rlh);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  :is(main:has(.mainContentWrapper) .mainContentWrapper, main:not(:has(.mainContentWrapper))) {
+    padding-inline: var(--content-padding);
+  }
+}

@@ -1,0 +1,150 @@
+---
+// Data
+import employees from "@data/employees.json";
+import DynamicIcon from "@components/helpers/DynamicIcon.astro";
+
+const { variant } = Astro.props;
+---
+
+{
+  variant === "half" ? (
+    <section>
+      <slot />
+      <div class="team-list">
+        {employees.slice(0, 3).map((person) => (
+          <div class="team-card-container">
+            <a href={`/${person.id}/${person.slug}`} class="team-link">
+              <img src={person.img} alt={person.name} />
+              <span>{person.title}</span>
+            </a>
+            <div class="team-description">
+              <h3>{person.name}</h3>
+              <p>{person.description}</p>
+            </div>
+            <div class="team-socials">
+              {person.social_links.map((data) => (
+                <a href={data.url} aria-label={data.platform}>
+                  <DynamicIcon name={data.icon} />
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <section>
+      <slot />
+      <div class="team-list">
+        {employees.map((person) => (
+          <div class="team-card-container">
+            <a href={`/${person.id}/${person.slug}`} class="team-link">
+              <img src={person.img} alt={person.name} />
+              <span>{person.title}</span>
+            </a>
+            <div class="team-description">
+              <h3>{person.name}</h3>
+              <p>{person.description}</p>
+            </div>
+            <div class="team-socials">
+              {person.social_links.map((data) => (
+                <a href={data.url} aria-label={data.platform}>
+                  <DynamicIcon name={data.icon} />
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  @layer components {
+    section {
+      display: grid;
+      grid-auto-flow: row;
+      row-gap: var(--space-xl);
+
+      margin-block: var(--space-3xl);
+
+      > :first-child {
+        
+      > header {
+        max-width: 81ch;
+      }
+      }
+
+      > .team-list {
+        display: flex;
+        gap: var(--space-xl);
+        flex-wrap: wrap;
+        place-content: center;
+
+        > .team-card-container {
+          /*flex: 0 1 calc((var(--content-width) / 3) - calc(var(--space-xl) * 2));*/
+          flex: 0 1 366px;
+          display: grid;
+          > * + * {
+            margin-block-start: var(--flow-space, 0.5rlh);
+          }
+
+          > .team-link {
+            display: grid;
+            aspect-ratio: 1;
+            > * {
+              grid-area: 1 / 1;
+            }
+            > img {
+              border-radius: var(--radius-l);
+            }
+            > span {
+              place-self: end;
+              font-family: var(--font-body);
+              font-size: var(--fs-0);
+              color: var(--color-white);
+              letter-spacing: 14.5%;
+              background-color: var(--color-black);
+              padding: var(--space-3xs) var(--space-xs);
+              border-radius: var(--radius-l);
+              margin-block-end: var(--space-m);
+              margin-inline-end: var(--space-m);
+            }
+          }
+
+          > .team-description {
+            text-align: center;
+            * + * {
+              margin-block-start: var(--flow-space, 0.5rlh);
+            }
+            > h3 {
+              font-size: var(--fs-3);
+              font-weight: 700;
+            }
+            > p {
+              --flow-space: var(--space-2xs);
+              color: var(--color-text-gray);
+            }
+          }
+
+          > .team-socials {
+            display: flex;
+            column-gap: var(--space-m);
+            place-self: center;
+
+            > * {
+              color: var(--color-black);
+            }
+          }
+        }
+      }
+    }
+  }
+  @layer overrides {
+    .team-list > .team-card-container:first-of-type .team-link > span {
+      background-color: var(--color-accent);
+      color: var(--color-black);
+    }
+  }
+</style>

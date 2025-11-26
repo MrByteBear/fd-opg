@@ -1,0 +1,92 @@
+---
+import Button from "@components/elements/Button.astro";
+---
+
+<div class="newsletterContainer">
+  <div>
+    <h2>Subscribe Our Newsletter</h2>
+    <p>Build stronger Customer Relationships with <span>Consultalk</span></p>
+  </div>
+  <form action="" method="POST">
+    <input type="email" name="email" id="emailField" placeholder="your email address" />
+    <Button btnType="submit" disabled>Subscribe</Button>
+  </form>
+</div>
+
+<style>
+  @layer components {
+    .newsletterContainer {
+      --flow-space: var(--space-3xl);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      place-self: center;
+      background-color: var(--color-black);
+      border-radius: var(--radius-m);
+      padding: var(--space-2xl);
+      margin-block-end: var(--space-3xl);
+      column-gap: var(--space-xs);
+
+      > div {
+        color: var(--color-white);
+        > h2 {
+          font-size: var(--fs-3);
+          font-weight: 600;
+        }
+        > p {
+          margin-block-start: var(--space-3xs-2xs);
+          font-size: var(--fs--1);
+
+          > span {
+            font-weight: 600;
+          }
+        }
+      }
+      > form {
+        display: flex;
+        align-items: center;
+        gap: var(--space-m);
+
+        > input {
+          padding-inline: var(--space-m) var(--space-xl);
+          padding-block: var(--space-s);
+          font-size: var(--fs-0);
+          font-family: var(--font-body);
+          color: var(--color-white);
+          border-radius: var(--radius-s);
+          background-color: var(--color-white);
+          width: 100%;
+          &::placeholder {
+            color: var(--color-input-placeholder);
+          }
+        }
+
+        > * + * {
+          --btn-pad: var(--btn-pad-l);
+          --btn-radius: var(--radius-l);
+          --btn-fw: 600;
+          --btn-fs: var(--fs-0);
+          --btn-bg: var(--color-accent);
+          --btn-col: var(--color-black);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    @layer overrides {
+      .newsletterContainer {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        
+        > form {
+          margin-block-start: var(--space-l);
+          display: grid;
+
+          > .actionBtn {
+            justify-self: center;
+          }
+        }
+      }
+    }
+  }
+</style>

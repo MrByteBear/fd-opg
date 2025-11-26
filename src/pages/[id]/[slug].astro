@@ -1,0 +1,154 @@
+---
+// Layout
+import Layout from "@layouts/Layout.astro";
+
+// Data
+import employees from "@data/employees.json";
+
+// Components - Helpers
+import DynamicIcon from "@components/helpers/DynamicIcon.astro";
+
+// Components - Elements
+import PatternImage from "@components/elements/PatternImage.astro";
+import Newsletter from "@components/elements/Newsletter.astro";
+
+// SVGs
+import PatternImgSrc from "@icons/pattern.svg";
+
+// Mapping stuff
+export function getStaticPaths() {
+  return employees.map((person) => ({
+    params: { id: String(person.id), slug: person.slug },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+
+if (!person) {
+  throw new Error("Person not found");
+}
+---
+
+<Layout title="Employee">
+  <section>
+    <PatternImage variant="dynamic" dynamicData={[person]} patternImg={PatternImgSrc} imagePath={person.img} altText={person.name} />
+    <article>
+        <div class="personDetails">
+          <div class="nameContainer">
+            <h1>{person.name}</h1>
+            <h2>{person.title}</h2>
+          </div>
+          <div class="border"></div>
+          <div class="socialContainer">
+            {
+              person.social_links.map((data) => (
+                <a href={data.url} aria-label={data.platform}>
+                  <DynamicIcon name={data.icon} />
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <p>{person.description_long}</p>
+        <div class="border"></div>
+        <h3>Past Experience</h3>
+        <p>{person.past_experience}</p>
+    </article>
+  </section>
+  <Newsletter/>
+</Layout>
+
+<style>
+  @layer components {
+  section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-2xl);
+    margin-block-start: var(--space-2xl);
+  }
+
+  .border {
+    display: inline-block;
+    background-color: #C1C1C1;
+  }
+
+  article {
+    margin-block-start: var(--space-xl);
+
+    > * {
+      margin-block-start: var(--flow-space, 0.5rlh);
+    }
+    > p {
+      color: var(--color-text-gray);
+      font-size: var(--fs-0);
+    }
+
+    > p:first-of-type {
+      --flow-space: var(--space-l);
+    }
+
+    h1, h3 {
+        color: var(--color-black);
+        font-size: var(--fs-4);
+        font-weight: 700;
+    }
+
+    > h3 {
+        --flow-space: var(--space-s);
+    }
+
+    > .border {
+      width: 100%;
+      height: 1px;
+      --flow-space: var(--space-l);
+    }
+  }
+
+  .personDetails {
+    --flow-space: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+    > .nameContainer {
+      > h2 {
+        color: var(--color-text-gray);
+        font-size: var(--fs-2);
+      }
+    }
+
+    > .border {
+      --flow-space: var(--space-xl);
+      height: 35px;
+      width: 1px;
+    }
+
+    > .socialContainer {
+      display: flex;
+      column-gap: var(--space-s-m);
+
+      > * {
+        display: grid;
+        border-radius: var(--radius-round);
+        width: clamp(1.406rem, 1.236rem + 0.852vw, 1.875rem);
+        aspect-ratio: 1;
+        background: var(--color-black);
+
+        > * {
+          place-self: center;
+          color: var(--color-white);
+          width: var(--fs-1);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    grid-template-columns: 1fr;
+    column-gap: unset;
+  }
+}
+</style>

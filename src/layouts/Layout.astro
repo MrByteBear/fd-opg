@@ -1,5 +1,9 @@
 ---
 import "@styles/main.css";
+import Header from "@layouts/Header.astro";
+import Footer from "@layouts/Footer.astro";
+import Newsletter from "@components/elements/Newsletter.astro";
+const { title } = Astro.props;
 ---
 
 <html lang="en">
@@ -7,14 +11,23 @@ import "@styles/main.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="generator" content={Astro.generator} />
-    <title>DIN TITEL HER. MÅSKE SOM PROP?</title>
+    <title>{title}</title>
     <style is:inline>
       @layer reset, global, components, overrides;
     </style>
   </head>
   <body>
-    <slot />
+    <Header>
+      <slot name="hero" />
+    </Header>
+    <main>
+      <slot/>
+      
+    </main>
+    <Footer />
   </body>
 </html>
 

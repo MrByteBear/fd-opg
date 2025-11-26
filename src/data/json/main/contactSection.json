@@ -1,0 +1,22 @@
+{
+  "title": "Process",
+  "heading": "Contact Us. It's Easy.",
+  "subheading": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative.",
+  "bulletpoints": [
+    {
+      "title": "Call Today",
+      "text": "+1 800 100 900",
+      "icon": "phone" 
+    }, 
+    {
+      "title": "Monday To Friday",
+      "text": "9AM - 5PM",
+      "icon": "clock" 
+    },
+    {
+      "title": "USA Office",
+      "text": "195 Devonshire St Boston, MA 02110",
+      "icon": "pin" 
+    }
+  ]
+}

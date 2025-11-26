@@ -1,0 +1,47 @@
+---
+const { bannerTitle, bannerHeading } = Astro.props;
+---
+
+<div class="heroBanner">
+  <span>{bannerTitle}</span>
+  <h1>{bannerHeading}</h1>
+</div>
+
+<style>
+  @layer components {
+    .heroBanner {
+      grid-column: 2;
+      justify-self: start;
+      display: grid;
+      grid-auto-flow: row;
+      row-gap: var(--space-m);
+      place-items: start;
+
+      background-color: var(--color-white);
+      opacity: 0.85;
+
+      border-radius: var(--radius-m);
+
+      padding-block-start: var(--space-l);
+      padding-block-end: var(--space-l-xl);
+      padding-inline: var(--space-xl);
+
+      max-width: 64ch;
+
+      > span {
+        font-family: var(--font-body);
+        font-size: var(--fs-0);
+        text-transform: uppercase;
+        color: var(--color-black);
+        letter-spacing: 14.5%;
+        background-color: var(--color-accent);
+        padding: var(--space-3xs) var(--space-xs);
+        border-radius: var(--radius-l);
+      }
+      > h1 {
+        font-size: var(--fs-4);
+        font-weight: 700;
+      }
+    }
+  }
+</style>

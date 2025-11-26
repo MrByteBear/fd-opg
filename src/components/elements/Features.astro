@@ -1,0 +1,65 @@
+---
+import coreValuesData from "@data/json/global/coreValues.json";
+import InfoCards from "@components/elements/InfoCards.astro";
+
+const { elemTheme } = Astro.props;
+---
+
+<section data-theme={elemTheme === "white" ? "white" : undefined} class="featuresSection">
+  <slot />
+  <InfoCards cardsData={coreValuesData.values} iconBG={true} cardTheme={elemTheme === "white" ? "light" : "dark"} />
+</section>
+
+<style>
+  @layer components {
+    section[data-theme="white"] {
+
+      --bg-variable: var(--color-white-alt);
+    }
+
+    section {
+      --flow-space: var(--space-2xl);
+      --bg-variable: var(--color-black);
+
+      grid-column: 1 / 4;
+      background-color: var(--bg-variable);
+
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-template-areas:
+        ". textbox ."
+        ". cards .";
+      row-gap: var(--space-xl-2xl);
+      padding-block: var(--space-2xl-3xl);
+      > article {
+        grid-area: textbox;
+
+        > :first-child {
+          max-width: 75ch;
+        }
+      }
+      > .cardContainer {
+        place-content: center;
+        flex-wrap: wrap;
+        --card-icon-col: var(--color-white);
+        --card-col: var(--color-black);
+        --card-padding: var(--card-padding-small);
+        --card-flex: 0 1 272px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    section {
+      margin-inline: var(--content-negative-pad);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      > .cardContainer {
+        --card-flex: var(--card-flex-mobile);
+      }
+    }
+  }
+</style>

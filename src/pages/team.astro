@@ -1,0 +1,41 @@
+---
+// Layout
+import Layout from "@layouts/Layout.astro";
+
+// Components / Elements
+import HeroBanner from "@components/elements/HeroBanner.astro";
+import Button from "@components/elements/Button.astro";
+
+// Components / Sections
+import SectionHeader from "@components/elements/SectionHeader.astro";
+import AccordionSection from "@components/sections/AccordionSection.astro";
+
+// Components / Helpers
+import HeroBgWrapper from "@components/helpers/HeroBgWrapper.astro";
+
+// Data
+import sectionHeaderData from "@data/json/global/sectionHeaderData.json";
+
+// Images + SVGs
+import TeamCard from "@components/elements/TeamCard.astro";
+import Newsletter from "@components/elements/Newsletter.astro";
+
+---
+
+<Layout title="About Page">
+  <HeroBgWrapper slot="hero" imagePath="heroBannerTeam.webp">
+    <HeroBanner bannerTitle="Team" bannerHeading="The Consultors" />
+  </HeroBgWrapper>
+  <div class="mainContentWrapper">
+    <TeamCard>
+      <SectionHeader variant="noTitle" heading={sectionHeaderData.teamListSection.heading} description={sectionHeaderData.teamListSection.description}>
+        <Button variant="link" url={sectionHeaderData.teamListSection.button.url}>{sectionHeaderData.teamListSection.button.text}</Button>
+      </SectionHeader>
+    </TeamCard>
+    <Newsletter />
+  </div>
+  
+</Layout>
+
+<style>
+</style>

@@ -1,0 +1,40 @@
+{
+  "expectSection": {
+    "bulletpoint": [
+      {
+        "text": "Collaborate to build actionable strategies that drive sustainable growth and deliver tangible outcomes."
+      },
+      {
+        "text": "Identify opportunities to optimize processes and implement impactful solutions with measurable results."
+      }
+    ]
+  },
+  "aboutSection": {
+    "bulletpoint": [
+      {
+        "text": "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day."
+      },
+      {
+        "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test override the digital."
+      }
+    ],
+    "counterData": [
+      {
+        "value": "1128+",
+        "label": "Successful Work"
+      },
+      {
+        "value": "908+",
+        "label": "Team member"
+      },
+      {
+        "value": "258+",
+        "label": "Happy Customers"
+      },
+      {
+        "value": "564+",
+        "label": "Creative Idea"
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+---
+import Logo from "@components/elements/Logo.astro";
+
+const {footerText} = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <div id="footerWrapper">
+    <Logo elemType="h2" />
+    <div></div>
+    <ol>
+      <li><p>©{currentYear} Consultalk. All rights reserved.</p></li>
+      <li><a href="#0">Terms of Service</a></li>
+      <li><a href="#0">Privacy Policy</a></li>
+    </ol>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: var(--color-black);
+  }
+
+  #footerWrapper {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding-block: var(--space-l);
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    justify-items: center;
+    row-gap: var(--space-m);
+
+    > div {
+      display: inline-block;
+      height: 1px;
+      background-color: #707070;
+      justify-self: stretch;
+      grid-column: span 3;
+    }
+
+    * {
+      color: var(--color-white);
+    }
+
+    > * {
+      grid-column: 2;
+    }
+
+    ol {
+      display: flex;
+      flex-wrap: wrap;
+      margin-inline: var(--space-m);
+      
+
+      > * + *::before {
+        content: "|";
+        display: inline-block;
+        font-family: "lato", "sans-seriff";
+        font-size: var(--fs-0);
+        margin-inline: 1ex;
+      }
+    }
+  }
+
+</style>

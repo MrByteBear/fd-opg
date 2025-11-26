@@ -1,0 +1,258 @@
+---
+import DynamicIcon from "@components/helpers/DynamicIcon.astro";
+
+const { scrollable, cardsData = [], iconBG, cardTheme } = Astro.props;
+---
+
+<ul id={scrollable ? "scrollable" : undefined} class="cardContainer" data-theme={cardTheme}>
+  {
+    cardsData.map((data: any) => (
+      <li>
+        <div class={iconBG ? "iconBackdrop" : undefined}>
+          <DynamicIcon name={data.icon} />
+        </div>
+        <h3>{data.title}</h3>
+        <p>{data.description}</p>
+        <a href={data.link.url}>{data.link.text}</a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  /* 
+  
+    Variables:
+
+    If possible, use values found in src/styles/global.css, where relevant (if relevant).
+
+    // Determines the "flex: ;" css property of the cards
+    --card-flex: flex-grow, flex-shrink, flex-basis OR var(--card-flex-basis)
+    
+    // Determines the padding of the card container
+    --card-padding: val OR val1 val2 OR var(--card-padding-(small OR big))
+
+    // Color of the card svg icon
+    --card-icon-col: val;
+    
+    // Color of the card heading and link text, as well as the background color for the SVG Icons backdrop (.iconBackdrop)
+    --card-col: val;
+
+    // Color of the card body text
+    --card-body-col: val OR pre-defined (#595566);
+
+    // color of the card background
+    --card-bg: val;
+    
+    Variables Preset:
+
+    --card-flex-basis: 1 0 calc(var(--content-width) / 3);
+
+    --card-padding-big: clamp(var(--space-l), var(--space-l-xl), 1.9rlh) var(--space-l);
+    --card-padding-small: var(--space-l), var(--space-m);
+
+   
+    Format for copy paste:
+
+    --card-icon-col: ;
+    --card-col: ;
+    --card-flex: ;
+    --card-padding: ;
+    
+    (Optional, if another color other than the pre-defined is desired)
+    
+    --card-bg: ;
+    --card-body-col: ;
+
+  */
+
+  @layer components {
+
+    .cardContainer[data-theme="light"] {
+      --card-bg: var(--color-white);
+    }
+
+     .cardContainer[data-theme="dark"] {
+      --card-bg: var(--color-white-alt);
+    }
+
+    .cardContainer {
+      --card-flex-basis: 1 0 calc(var(--content-width) / 3);
+
+      --card-flex-mobile: 1 0 calc(var(--content-width) / 4);
+
+      --card-padding-big: clamp(var(--space-l), var(--space-l-xl), 1.9rlh) var(--space-l);
+
+      --card-padding-small: var(--space-m-l) var(--space-m);
+
+      --card-body-col: var(--color-text-gray);
+
+      --card-bg: var(--color-gray);
+
+      grid-area: cards;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: var(--space-m-l);
+
+      > li {
+        flex: var(--card-flex, 1);
+        align-self: start;
+        display: block;
+        padding: var(--card-padding);
+        border-radius: var(--radius-l);
+        background: var(--card-focused-bg, var(--card-bg));
+
+        > :first-child {
+          color: var(--focused-icon-col, var(--card-icon-col));
+        }
+
+        > * + * {
+          margin-block-start: var(--space-3xs-2xs);
+          color: var(--card-focused-col, var(--card-col));
+        }
+        > h3 {
+          font-size: var(--fs-3);
+          font-weight: 600;
+          margin-block-start: clamp(var(--space-s), var(--space-m), 1rlh);
+        }
+        > p {
+          color: var(--card-focused-col, var(--card-body-col));
+        }
+
+        > :last-child {
+          display: inline-block;
+          margin-block-start: var(--space-3xs-2xs);
+
+          &::after {
+            content: "";
+            display: inline-block;
+            mask: url("/src/icons/arrow-right.svg") no-repeat center / contain;
+            background-color: var(--card-focused-col, var(--card-col));
+            aspect-ratio: 25 / 22;
+            width: var(--fs-0);
+            margin-inline-start: var(--space-3xs-2xs);
+          }
+        }
+      }
+
+      .scrolledItem {
+        --card-focused-bg: var(--color-black);
+        --focused-icon-col: var(--color-accent);
+        --card-focused-col: var(--color-white);
+      }
+    }
+
+    .cardContainer#scrollable {
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-inline: max(1rem, 50% - var(--content-width) / 2);
+
+      > * {
+        scroll-snap-align: center;
+      }
+    }
+
+    .iconBackdrop {
+      display: grid;
+      border-radius: var(--radius-round);
+      width: clamp(2.484rem, 2.183rem + 1.506vw, 3.313rem);
+      aspect-ratio: 1;
+      background: var(--card-col);
+
+      > * {
+        place-self: center;
+      }
+    }
+
+   
+  }
+
+  @media screen and (max-width: 1200px) {
+    .cardContainer#scrollable {
+      padding-inline: var(--content-padding);
+    }
+    
+  }
+
+</style>
+
+<script is:inline>
+  "use strict";
+
+  const HTML = {};
+
+  window.addEventListener("DOMContentLoaded", () => {
+    HTML.scrollContainer = document.getElementById("scrollable");
+
+    if (!HTML.scrollContainer) return; // Stops the script if the Ul element doesn't contain the id "scrollable"
+
+    HTML.scrollItems = Array.from(HTML.scrollContainer.children);
+    let i = 0;
+
+    HTML.scrollItems[i].classList.add("scrolledItem");
+
+    HTML.leftBtn = document.getElementById("btnLeft");
+    HTML.rightBtn = document.getElementById("btnRight");
+
+    //console.log(HTML.scrollItems);
+    //console.log("value of i:", i);
+
+    /* On btn click, adds or subtracts let i, and passes that val as the val of index for scrollToItem() */
+    HTML.leftBtn.addEventListener("click", () => {
+      i--;
+      scrollToItem(i, "left");
+      //console.log("value of i:", i);
+    });
+
+    HTML.rightBtn.addEventListener("click", () => {
+      i++;
+      scrollToItem(i, "right");
+      //console.log("value of i:", i);
+    });
+
+    function scrollToItem(index, dir) {
+      /* Removes the class from my list elements */
+      HTML.scrollItems.forEach((item) => item.classList.remove("scrolledItem"));
+
+      /* Points to the width of the first <li> item. */
+      HTML.itemWidth = HTML.scrollItems[0].offsetWidth;
+
+      /* 
+        // if () statement executes if bounds of index is less than 0 or equal to / more than length of the items <li> array
+        // When if statement is true, resets the value of let i back to 0, and scrolls back to start.
+      */
+      if (index < 0 || index >= HTML.scrollItems.length) {
+        i = 0;
+        HTML.scrollContainer.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+        /* 
+        // Otherwise, if index is within bounds, sets the value of i to be the value of index
+        // Then scrolls based on the direction (using a tenary operator, shorthand one-line if statement)
+        // Based on the width of the items, either adding (the default) or subtracting (dir === "left") -HTML.itemWidth;
+      */
+      } else {
+        i = index;
+        HTML.scrollContainer.scrollBy({
+          left: dir === "left" ? -HTML.itemWidth : HTML.itemWidth,
+          behavior: "smooth",
+        });
+      }
+
+      /* Adds the class depending on which item [i] is pointed to in the array. */
+      HTML.scrollItems[i].classList.add("scrolledItem");
+
+      /* (Scrolls by the whole container instead of the width of the items themselves) 
+      HTML.scrollContainer.scrollBy({
+        left: dir === "left" ? -HTML.scrollContainer.offsetWidth : HTML.scrollContainer.offsetWidth,
+        behavior: "smooth"
+      });
+      console.log(HTML.scrollContainer.offsetWidth);
+      */
+    }
+  });
+</script>

@@ -1,0 +1,126 @@
+---
+import CheckmarkIcon from "@icons/checkmark.svg";
+
+const { isSwapped, bulletpointData = [], counterData = [] } = Astro.props;
+---
+
+<section>
+  <div class="infoBoxContainer">
+    <slot name="patternImage" />
+
+    <div class={isSwapped === "true" ? "swappedTextbox" : ""}>
+      <slot name="sectionHeader" />
+      <ul>
+        {
+          bulletpointData.map((data: any) => (
+            <li>
+              <CheckmarkIcon />
+              <p>{data.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <ul class={isSwapped === "true" ? "aboutInfoValues" : ""}>
+    {
+      counterData.map((data: any) => (
+        <li>
+          <span>{data.value}</span>
+          <p>{data.label}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  @layer components {
+    section {
+      > ul:not:(.aboutInfoValues) {
+        display: none;
+      }
+
+      margin-block-start: var(--space-l);
+
+      > .infoBoxContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        > div {
+          padding-inline-start: var(--space-2xl);
+
+          > ul > * + * {
+            margin-top: var(--flow-space, 0.5rlh);
+          }
+          > ul {
+            margin-block-start: var(--space-l);
+
+            > li {
+              display: flex;
+              gap: 1rem;
+              > :first-child {
+                flex-shrink: 0;
+                color: var(--color-accent-alt);
+                align-self: flex-start;
+                margin-block-start: 1ex;
+              }
+            }
+
+            > * + * {
+              --flow-space: var(--space-xs-s);
+            }
+          }
+        }
+      }
+
+      .swappedTextbox {
+        padding-inline-start: 0;
+        padding-inline-end: var(--space-2xl);
+      }
+
+      > .aboutInfoValues {
+        display: flex;
+        justify-content: space-around;
+        /*width: 100%;*/
+
+        > li {
+          text-align: center;
+          > span {
+            font-family: var(--font-display);
+            font-size: var(--fs-5);
+            font-weight: 700;
+            color: var(--color-black);
+          }
+          > p {
+            font-size: var(--fs-1);
+            font-weight: 500;
+            color: var(--color-black);
+          }
+        }
+      }
+    }
+  }
+
+  section:has(> .aboutInfoValues) {
+    display: grid;
+    grid-template: 1fr auto / 1fr;
+    row-gap: var(--space-xl);
+  }
+
+  @media screen and (max-width: 768px) {
+    .infoBoxContainer {
+      grid-template-columns: unset;
+
+      > div {
+        padding: 0;
+        margin-block-start: var(--space-l-xl);
+      }
+    }
+    .aboutInfoValues {
+      flex-wrap: wrap;
+      gap: var(--space-l);
+    }
+  }
+
+</style>

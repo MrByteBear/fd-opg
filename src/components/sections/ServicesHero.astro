@@ -1,0 +1,210 @@
+---
+import { Image } from "astro:assets";
+import servicesData from "@data/json/main/services.json";
+import CEOImage from "@assets/images/ceo.webp";
+import Button from "@components/elements/Button.astro";
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Empowering Your Business Growth</h1>
+    <p>Discover tailored strategies and expert insights to take your business to the next level. Let us help you navigate challenges and achieve sustainable success.</p>
+    <Button variant="link" url="#0">Book a Meeting</Button>
+  </div>
+  <Image src={CEOImage} alt="CEO" />
+
+  <ul>
+    {
+      servicesData.services.map((service) => (
+        <li>
+          <h2>{service.title}</h2>
+          <p>{service.description}</p>
+          <Button variant="link" url="#0">
+            {service.buttonText}
+          </Button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  /* Styles her */
+  @layer components {
+    .hero {
+      /*background-color: #f3f4f6;*/
+      display: grid;
+      grid-template-columns: 1fr repeat(2, minmax(0, calc(var(--content-width) / 2))) 1fr;
+      grid-template-areas:
+        "a a b b"
+        ". c c .";
+      > :nth-child(2) {
+        grid-area: b;
+        align-self: stretch;
+      }
+      > :nth-child(3) {
+        grid-area: c;
+        display: grid;
+        column-gap: var(--space-m);
+        transform: translateY(-50%);
+        grid-template-columns: repeat(3, 1fr);
+        place-self: center;
+      }
+
+      p {
+        font-size: var(--fs-0);
+        max-width: 54ch;
+      }
+    }
+
+    .hero-content {
+      background-color: var(--color-black);
+      grid-area: a;
+      color: var(--color-white);
+      padding-inline-start: max(var(--space-s), 100% - var(--content-width) / 2);
+      padding-inline-end: var(--space-s);
+      padding-block-end: var(--space-xl);
+      position: relative;
+
+      &::before {
+        --pattern-size: clamp(4.109rem, 0.766rem + 16.716vw, 16.438rem);
+        content: "";
+        position: absolute;
+        background-image: url("/src/icons/pattern.svg");
+        aspect-ratio: 1;
+        top: calc(var(--space-2xl) + 1em);
+        left: calc(0% - var(--pattern-size) / 2);
+        width: var(--pattern-size);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      h1 {
+        font-size: var(--fs-4);
+        font-weight: bold;
+        margin-block-start: var(--space-2xl);
+      }
+      > * + * {
+        margin-block-start: var(--space-m);
+      }
+
+      > a:last-child {
+        --btn-pad: var(--btn-pad-m);
+        --btn-radius: var(--radius-l);
+        --btn-bg: var(--color-white);
+        --btn-col: var(--color-black);
+        --btn-fs: var(--fs-1);
+      }
+    }
+    li {
+      --card-bg: rgba(38, 38, 38, 0.9);
+      background: var(--card-bg);
+      border-radius: var(--radius-l);
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+
+      h2 {
+        font-size: var(--fs-1);
+      }
+      > * {
+        color: var(--color-white);
+      }
+      > * + * {
+        margin-block-start: var(--space-xs);
+      }
+      > a:last-child {
+        --btn-pad: var(--btn-pad-m);
+        --btn-space-top: var(--space-m);
+        --btn-radius: var(--radius-l);
+        --btn-bg: var(--color-black);
+        --btn-col: var(--color-white);
+        --btn-fs: var(--fs-1);
+        align-self: end;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: fit-content;
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1500px) {
+    .hero-content::before {
+      left: calc(0% - var(--pattern-size) / 1.5);
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .hero-content::before {
+      left: calc(0% - var(--pattern-size) / 1.25);
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .hero-content::before {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    @layer components {
+
+      .hero-content {
+        padding-inline: var(--content-padding);
+      }
+
+      .hero {
+        & > :nth-child(3) {
+          transform: unset;
+          margin-block: var(--space-m);
+          padding-inline: var(--content-padding);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    @layer override {
+      .hero {
+        > :nth-child(2) {
+          display: none;
+        }
+
+        > :nth-child(3) {
+          display: flex;
+          overflow-x: scroll;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          width: 100%;
+          padding-block-end: var(--space-m);
+
+          > * {
+            scroll-snap-align: center;
+            display: block;
+            flex: 1 0 calc(var(--content-width) / 4);
+
+            > * + * {
+              margin-block-start: var(--space-m);
+            }
+
+            > .linkBtn {
+              --btn-pad: var(--btn-pad-mobile-m);
+            }
+          }
+        }
+      }
+    }
+
+    .hero-content {
+      grid-area: a / a / a / b;
+      padding-inline: var(--space-m);
+
+      > a:last-child {
+        --btn-pad: var(--btn-pad-mobile-m);
+      }
+    }
+  }
+</style>

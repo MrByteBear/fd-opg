@@ -1,8 +1,73 @@
 ---
+// Astro Assets
+
+// Layout
 import Layout from "@layouts/Layout.astro";
-import Hero from "@components/Hero.astro";
+
+// Components / Sections
+import ServicesHero from "@components/sections/ServicesHero.astro";
+import ScrollingContainer from "@components/sections/ScrollingContainer.astro";
+import ExperienceCounter from "@components/sections/ExperienceCounter.astro";
+import ContactSection from "@components/sections/ContactSection.astro";
+import Newsletter from "@components/elements/Newsletter.astro";
+
+// Components / Elements
+import Button from "@components/elements/Button.astro";
+import InfoBox from "@components/elements/InfoBox.astro";
+import PatternImage from "@components/elements/PatternImage.astro";
+import SectionHeader from "@components/elements/SectionHeader.astro";
+import Features from "@components/elements/Features.astro";
+
+// Data
+import infoBoxData from "@data/json/global/infoBoxData.json";
+import sectionHeaderData from "@data/json/global/sectionHeaderData.json";
+import coreValuesData from "@data/json/global/coreValues.json";
+
+// Images + SVGs
+import PatternImgSrc from "@icons/pattern.svg";
+import ExpectImgSrc from "@assets/images/expect.webp";
+import LeftArrow from "@icons/arrow-left.svg";
+import RightArrow from "@icons/arrow-right.svg";
+
+const expectSectionData = infoBoxData.expectSection;
 ---
 
-<Layout>
-  <Hero />
+<Layout title="Front Page">
+  <ServicesHero slot="hero" />
+  <div class="mainContentWrapper">
+    <InfoBox bulletpointData={expectSectionData.bulletpoint}>
+      <PatternImage slot="patternImage" patternImg={PatternImgSrc} sectionImg={ExpectImgSrc} />
+      <SectionHeader slot="sectionHeader" title={sectionHeaderData.expectSection.title} heading={sectionHeaderData.expectSection.heading} description={sectionHeaderData.expectSection.description} />
+    </InfoBox>
+    <ScrollingContainer>
+      <SectionHeader variant="noTitle" heading={sectionHeaderData.projectionSection.heading} description={sectionHeaderData.projectionSection.description}>
+        <div>
+          <Button btnType="button" btnId="btnLeft"><LeftArrow /></Button>
+          <Button btnType="button" btnId="btnRight"><RightArrow /></Button>
+        </div>
+      </SectionHeader>
+    </ScrollingContainer>
+    <ExperienceCounter>
+      <SectionHeader title={sectionHeaderData.experienceSection.title} heading={sectionHeaderData.experienceSection.heading} description={sectionHeaderData.experienceSection.description} />
+    </ExperienceCounter>
+    <Features class="home">
+      <SectionHeader elemTheme="dark" title={sectionHeaderData.coreValuesSection.title} heading={sectionHeaderData.coreValuesSection.heading} description={sectionHeaderData.coreValuesSection.description}>
+        <Button variant="link" url={coreValuesData.button.link}>{coreValuesData.button.text}</Button>
+      </SectionHeader>
+    </Features>
+    <ContactSection>
+      <SectionHeader title={sectionHeaderData.contactSection.title} heading={sectionHeaderData.contactSection.heading} description={sectionHeaderData.contactSection.description} />
+    </ContactSection>
+    <Newsletter />
+  </div>
 </Layout>
+
+<style>
+  @layer overrides {
+    .mainContentWrapper {
+      > .featuresSection {
+        --flow-space: 0;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+const { elemType } = Astro.props;
+const Tag = elemType;
+---
+
+<Tag class="logo">AskExperts</Tag>
+
+<style>
+  /*
+  
+  Variables:
+
+  If possible, use values found in src/styles/global.css.
+
+  "-X" value of X can be found in global.css. E.g. --fs-3
+
+  --logo-fs: val OR var(--fs-X);                      = Logo Font Size.
+  --logo-fw: val;                                     = Logo Font Weight.
+  --logo-bg: val OR var(--color-X);                   = Logo Background Color.
+  --logo-col: val OR var(--color-X);                  = Logo Text Color
+  
+  Format for copy paste:
+
+  --logo-fs: val;
+  --logo-fw: val;
+  --logo-bg: val;
+  --logo-col: val;
+
+  */
+
+  @layer components {
+    * {
+      font-size: var(--logo-fs, clamp(1rem, var(--fs-3), 30px));
+      font-weight: var(--logo-fw, revert-layer);
+      color: var(--logo-col, revert-layer);
+      background-color: var(--logo-bg, revert-layer);
+    }
+  }
+</style>

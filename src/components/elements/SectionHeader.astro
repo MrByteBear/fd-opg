@@ -1,0 +1,98 @@
+---
+const { variant, elemTheme, textColor, title, heading, description } = Astro.props;
+---
+
+{
+  variant === "noTitle" ? (
+    <article data-theme={elemTheme === "dark" ? "dark" : ""}>
+      <header>
+        <h2>{heading}</h2>
+        <p>{description}</p>
+      </header>
+      <slot />
+    </article>
+  ) : (
+    <article data-theme={elemTheme === "dark" ? "dark" : ""}>
+      <header>
+        <span>{title}</span>
+        <h2>{heading}</h2>
+        <p>{description}</p>
+      </header>
+      <slot />
+    </article>
+  )
+}
+
+<style>
+  @layer overrides {
+    article[data-theme="dark"] {
+      > .linkBtn {
+        --btn-bg: var(--color-white);
+        --btn-col: var(--color-black);
+      }
+
+      > header {
+        color: var(--color-white);
+
+        > p {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+  @layer components {
+    article {
+      > header {
+        color: var(--color-black);
+        > * + * {
+          margin-top: var(--flow-space, 0.5rlh);
+        }
+        > span {
+          font-family: var(--font-body);
+          font-size: var(--fs-0);
+          text-transform: uppercase;
+          letter-spacing: 14.5%;
+        }
+        > h2 {
+          font-size: var(--fs-5);
+          font-weight: 700;
+          --flow-space: var(--space-2xs-xs);
+          line-height: var(--text-lh);
+        }
+        > p {
+          --flow-space: var(--space-xs);
+          color: var(--color-text-gray);
+        }
+      }
+    }
+
+    article:has(> :nth-child(2)) {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-m);
+
+      > :last-child {
+        align-self: end;
+        flex-shrink: 0;
+      }
+      > .linkBtn {
+        --btn-pad: var(--btn-pad-m);
+        --btn-radius: var(--radius-l);
+        --btn-bg: var(--color-black);
+        --btn-col: var(--color-white);
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    article:has(> :nth-child(2)) {
+      display: grid;
+      row-gap: var(--space-l);
+
+      > :last-child {
+        align-self: unset;
+        justify-self: end;
+      }
+    }
+  }
+</style>

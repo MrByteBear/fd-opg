@@ -1,0 +1,86 @@
+---
+import financialData from "@data/json/main/financialProjections.json";
+import InfoCards from "@components/elements/InfoCards.astro";
+---
+
+<section>
+  <slot />
+  <InfoCards cardsData={financialData.values} scrollable={true} />
+</section>
+
+<style>
+  @layer components {
+    section {
+      --flow-space: var(--space-2xl);
+
+      grid-column: span 3;
+      background-color: var(--color-white-alt);
+
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-template-areas:
+        ". textbox ."
+        "cards cards cards";
+      row-gap: var(--space-xl-2xl);
+      padding-block: var(--space-2xl-3xl);
+      > article {
+        grid-area: textbox;
+
+        > div:last-child {
+          display: flex;
+          align-items: center;
+          gap: var(--space-m);
+
+          > * {
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: var(--radius-round);
+            background-color: var(--color-accent);
+            width: var(--space-2xl);
+            aspect-ratio: 1;
+            display: grid;
+
+            > * {
+              place-self: center;
+            }
+          }
+
+          > #btnLeft {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            > * {
+              aspect-ratio: 25 / 21;
+            }
+          }
+
+          > #btnRight {
+            background-color: var(--color-accent);
+            > * {
+              aspect-ratio: 25 / 22;
+            }
+          }
+        }
+      }
+      > .cardContainer {
+        --card-icon-col: var(--color-black);
+        --card-col: var(--color-black);
+        --card-flex: var(--card-flex-basis);
+        --card-padding: var(--card-padding-big);
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    section {
+      margin-inline: var(--content-negative-pad);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      > .cardContainer {
+        --card-flex: var(--card-flex-mobile);
+      }
+    }
+  }
+</style>

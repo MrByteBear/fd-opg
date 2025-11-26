@@ -1,0 +1,196 @@
+---
+import img_1 from "@assets/images/contactImg1.webp";
+import img_2 from "@assets/images/contactImg2.webp";
+import img_3 from "@assets/images/contactImg3.webp";
+import { Image } from "astro:assets";
+import contactData from "@data/json/main/contactSection.json";
+import DynamicIcon from "@components/helpers/DynamicIcon.astro";
+---
+
+<section>
+  <div class="contactSectionContainer">
+    <div class="contactDetails">
+      <slot />
+      <ul>
+        {
+          contactData.bulletpoints.map((data) => (
+            <li class="listContainer">
+              <div class="listIcon">
+                <DynamicIcon name={data.icon} />
+              </div>
+              <div class="listText">
+                <h3>{data.title}</h3>
+                <p>{data.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="imageContainer">
+      <Image src={img_1} alt="Person" />
+      <Image src={img_2} alt="People Working" />
+      <Image src={img_3} alt="People Talking" />
+      <!-- <Image src={PatternImg} alt="pattern image" /> -->
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    section {
+      --flow-space: var(--space-2xl);
+      margin-block-end: calc(var(--space-xl) * 4);
+    }
+
+    .contactSectionContainer {
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: var(--space-xl);
+
+      > .contactDetails > ul {
+        margin-top: var(--space-m-l);
+
+        > * + * {
+          margin-top: var(--space-m);
+        }
+
+        > .listContainer {
+          display: flex;
+          column-gap: var(--space-s);
+          align-items: center;
+
+          > .listIcon {
+            border-radius: var(--radius-round);
+            aspect-ratio: 1;
+            width: clamp(2.484rem, 2.183rem + 1.506vw, 3.313rem);
+            display: grid;
+
+            > * {
+              place-self: center;
+            }
+          }
+
+          &:nth-child(1) .listIcon {
+            background-color: #ffecbb;
+            > * {
+              color: #deaa27;
+            }
+          }
+
+          &:nth-child(2) .listIcon {
+            background-color: #a4eda4;
+            > * {
+              color: #4eaf4e;
+            }
+          }
+
+          &:nth-child(3) .listIcon {
+            background-color: #eaeaea;
+            > * {
+              color: #181818;
+            }
+          }
+
+          > .listText {
+            > h3 {
+              color: var(--color-text-gray);
+              font-family: var(--font-body);
+              font-size: var(--fs-0);
+            }
+            > p {
+              font-weight: 700;
+              font-size: var(--fs-1);
+            }
+          }
+        }
+      }
+
+      > .imageContainer {
+        display: grid;
+        grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+        align-items: stretch;
+        gap: var(--space-m);
+        position: relative;
+
+        margin-block-start: var(--space-xl);
+        margin-block-end: calc(var(--space-xl) * -1);
+        margin-inline-end: var(--space-xl);
+
+        &::before {
+          content: "";
+          position: absolute;
+          aspect-ratio: 2 / 1;
+          z-index: -1;
+          background-color: var(--color-accent-alt);
+          border-radius: var(--radius-m);
+          width: clamp(4.063rem, 0.208rem + 17.13vw, 15.625rem);
+          bottom: calc(var(--space-xl) * -1);
+          left: calc(var(--space-xl) * -1);
+        }
+        &::after {
+          --pattern-size: clamp(4.109rem, 0.766rem + 16.716vw, 16.438rem);
+          content: "";
+          position: absolute;
+          background-image: url(/src/icons/pattern.svg);
+          aspect-ratio: 1;
+          top: calc(var(--space-xl) * -1);
+          right: calc(var(--space-xl) * -1);
+          width: var(--pattern-size);
+          background-size: cover;
+          background-repeat: no-repeat;
+          z-index: -1;
+        }
+        > * {
+          border-radius: var(--radius-l);
+          width: 100%;
+        }
+        > * + * {
+          grid-column: 2;
+        }
+        > img:nth-child(1) {
+          grid-column: 1;
+          grid-row: 1 / 3;
+        }
+        > img:nth-child(2) {
+          grid-row: 1 / 2;
+        }
+        > img:nth-child(3) {
+          grid-row: 2 / 3;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    section {
+      > .contactSectionContainer {
+        grid-auto-flow: row;
+        column-gap: unset;
+        row-gap: calc(var(--space-xl) * 3);
+
+        > :first-child {
+          order: 2;
+        }
+        > :last-child {
+          order: 1;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    section {
+      > .contactSectionContainer {
+
+        >.imageContainer {
+
+          margin-inline-end: unset;
+
+          &::before, &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+</style>

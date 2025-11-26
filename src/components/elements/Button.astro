@@ -1,0 +1,74 @@
+---
+const { variant, btnType, popupTarget, url, linkTarget, btnId } = Astro.props;
+---
+
+{
+  variant === "link" ? (
+    <a href={url} target={linkTarget} class="linkBtn" id={btnId}>
+      <slot />
+    </a>
+  ) : (
+    <button type={btnType} popovertarget={popupTarget} class="actionBtn" id={btnId}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  /*
+  
+  Variables:
+
+  If possible, use values found in src/styles/global.css.
+
+  "-X" value of X can be found in global.css. E.g. --radius-m, --fs-3.
+
+  --btn-pad: val / val1 val2 OR var(--btn-pad-X);     = Button Padding. If var(--btn-pad-X) then X = s / m / l
+  --btn-space-top: val OR var(--space-X);             = Button Margin Top.
+  --btn-radius: val OR var(--radius-X);               = Button Radius.
+  --btn-fw: val;                                      = Button Font Weight.
+  --btn-fs: val OR var(--fs-X);                       = Button Font Size.
+  --btn-bg: val OR var(--color-X);                    = Button Background Color.
+  --btn-col: val OR var(--color-X);                   = Button Text Color.
+  
+  Format for copy paste:
+
+  --btn-pad: val;
+  --btn-space-top: val;
+  --btn-radius: val;
+  --btn-fw: val;
+  --btn-fs: val;
+  --btn-bg: val;
+  --btn-col: val;
+
+  */
+  @layer components {
+    .linkBtn,
+    .actionBtn {
+      --btn-pad-mobile-s: 0.5rem 1rem;
+      --btn-pad-mobile-m: 0.5rem 2rem;
+      --btn-pad-mobile-l: 0.5rem 3rem;
+      --btn-pad-s: 0.5rem 1rem;
+      --btn-pad-m: 1rem 2rem;
+      --btn-pad-l: 1rem 3rem;
+
+      display: inline-block;
+      width: fit-content;
+      height: fit-content;
+      padding: var(--btn-pad, revert-layer);
+      margin-block-start: var(--btn-space-top, revert-layer);
+      border-radius: var(--btn-radius, revert-layer);
+      font-weight: var(--btn-fw, revert-layer);
+      font-size: var(--btn-fs, revert-layer);
+      font-family: var(--font-body);
+      background-color: var(--btn-bg, revert-layer);
+      color: var(--btn-col, revert-layer);
+
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(0.8);
+      }
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+// Layout
+import Layout from "@layouts/Layout.astro";
+
+// Components / Elements
+import HeroBanner from "@components/elements/HeroBanner.astro";
+import Button from "@components/elements/Button.astro";
+
+// Components / Sections
+import InfoBox from "@components/elements/InfoBox.astro";
+import PatternImage from "@components/elements/PatternImage.astro";
+import SectionHeader from "@components/elements/SectionHeader.astro";
+import Features from "@components/elements/Features.astro";
+import AccordionSection from "@components/sections/AccordionSection.astro";
+
+// Components / Helpers
+import HeroBgWrapper from "@components/helpers/HeroBgWrapper.astro";
+
+// Data
+import infoBoxData from "@data/json/global/infoBoxData.json";
+import sectionHeaderData from "@data/json/global/sectionHeaderData.json";
+import coreValuesData from "@data/json/global/coreValues.json";
+
+// Images + SVGs
+import PatternImgSrc from "@icons/pattern.svg";
+import InfoAboutImg from "@assets/images/infoAboutImg.webp";
+import TeamCard from "@components/elements/TeamCard.astro";
+import Newsletter from "@components/elements/Newsletter.astro";
+
+const aboutSectionData = infoBoxData.aboutSection;
+---
+
+<Layout title="About Page">
+  <HeroBgWrapper slot="hero" imagePath="heroBannerAbout.webp" variant="about">
+    <HeroBanner bannerTitle="About" bannerHeading="Creative Services For Boost Your Business Growth" />
+  </HeroBgWrapper>
+  <div class="mainContentWrapper">
+    <InfoBox bulletpointData={aboutSectionData.bulletpoint} counterData={aboutSectionData.counterData} isSwapped="true">
+      <PatternImage slot="patternImage" patternImg={PatternImgSrc} sectionImg={InfoAboutImg} isSwapped="true"/>
+      <SectionHeader slot="sectionHeader" title={sectionHeaderData.aboutIdeasSection.title} heading={sectionHeaderData.aboutIdeasSection.heading} description={sectionHeaderData.aboutIdeasSection.description} />
+    </InfoBox>
+    <Features elemTheme="white" class="about">
+      <SectionHeader title={sectionHeaderData.coreValuesSection.title} heading={sectionHeaderData.coreValuesSection.heading} description={sectionHeaderData.coreValuesSection.description}>
+        <Button variant="link" url={coreValuesData.button.link}>{coreValuesData.button.text}</Button>
+      </SectionHeader>
+    </Features>
+    <TeamCard variant="half">
+      <SectionHeader title={sectionHeaderData.ourTeamSection.title} heading={sectionHeaderData.ourTeamSection.heading} description={sectionHeaderData.ourTeamSection.description}/>
+    </TeamCard>
+    <AccordionSection />
+    <Newsletter />
+  </div>
+  
+</Layout>
+
+<style>
+</style>
